@@ -1,7 +1,7 @@
 <?php
 	class core {
 		public static function debug($debug, $message) {
-			if($debug) {echo '<br/> Debug: '.$message.PHP_EOL;}
+			if($debug['debug']) {echo '<br/> Debug: '.$message.PHP_EOL;}
 		}
 
 		public static function error($_, $level, $message) {
