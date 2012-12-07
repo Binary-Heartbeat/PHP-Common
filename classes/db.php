@@ -20,6 +20,12 @@
 				$statement->execute(array($values));
 			}
 			self::close($statement);
+
+			$result = $statement->errorCode();
+			if($result !== '00000') {
+				return false;
+			}
+			return true;
 		}
 		public static function getRow($_, $query, $values) {
 			$statement = self::connect($_)->prepare($query);
