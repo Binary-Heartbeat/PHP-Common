@@ -13,12 +13,21 @@
 			$statement=db::connect($_)->prepare($query);
 			$statement->execute(array($type,$user,$text));
 			db::close($statement);
+			/* Type key for common::log()
+			1 - register
+			2 - login
+			3 - logout
+			4 - cookie/token renewed
+			5 - expired cookie/token destroyed
+			*/
+		}
+		public static function config($_) {
+			$statement = db::connect($_);
+			foreach($statement->query('SELECT * FROM '.$_['table_prefix'].'settings') as $row) {
+				$_[$row['SetName']] = $row['SetValue'];
+			}
+			db::error($statement);
+			//db::close($statement);
+			return $_;
 		}
 	}
-	/* Type key for common::log()
-	1 - register
-	2 - login
-	3 - logout
-	4 - cookie/token renewed
-	5 - expired cookie/token destroyed
-	*/
